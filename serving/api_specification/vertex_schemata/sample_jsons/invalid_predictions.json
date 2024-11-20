@@ -1,0 +1,90 @@
+{
+  "invalid_missing_model_version": {
+    "result": {
+      "patch_embeddings": [
+        {
+          "patch_coordinate": {
+            "x": 100,
+            "y": 50,
+            "width": 256,
+            "height": 256
+          },
+          "embedding_vector": [0.1, 0.2, 0.3]
+        }
+      ]
+    }
+  },
+  "invalid_empty_patch_embeddings": {
+    "model_version": "1.2.3",
+    "result": {
+      "patch_embeddings": []
+    }
+  },
+  "invalid_missing_patch_coordinate": {
+    "model_version": "1.2.3",
+    "result": {
+      "patch_embeddings": [
+        {
+          "embedding_vector": [0.8, 0.9, 1.0]
+        }
+      ]
+    }
+  },
+  "invalid_wrong_embedding_dimension": {
+    "model_version": "1.2.3",
+    "result": {
+      "patch_embeddings": [
+        {
+          "patch_coordinate": {
+            "x": 150,
+            "y": 200,
+            "width": 256,
+            "height": 256
+          },
+          "embedding_vector": [0.8, 0.9, 1.0]
+        }
+      ]
+    }
+  },
+  "invalid_non_float_embedding": {
+    "model_version": "1.2.3",
+    "result": {
+      "patch_embeddings": [
+        {
+          "patch_coordinate": {
+            "x": 150,
+            "y": 200,
+            "width": 256,
+            "height": 256
+          },
+          "embedding_vector": [0.8, 0.9, "invalid_string"]
+        }
+      ]
+    }
+  },
+  "invalid_both_result_and_error": {
+    "model_version": "1.2.3",
+    "result": {
+      "patch_embeddings": [
+        {
+          "patch_coordinate": {
+            "x_origin": 100,
+            "y_origin": 200
+          },
+          "embedding_vector": [0.8, 0.9, 1.0]
+        }
+      ]
+    },
+    "error": {
+      "code": "TOO_MANY_PATCHES_ERROR",
+      "description": "Try with less patches."
+    }
+  },
+  "invalid_too_long_error_desc": {
+    "model_version": "1.2.3",
+    "error": {
+      "code": "TOO_MANY_PATCHES_ERROR",
+      "description": "Long error descriptions are anti-pattern in API design, but we use them in Pathology. This error description intentionally exceeds the character limit of 1024 to illustrate a violation of the maxLength constraint in the updated OpenAPI specification. The maxLength attribute, a key component of the OpenAPI framework, restricts the length of strings within API components. By deliberately surpassing this constraint, we trigger a validation error, demonstrating the enforcement mechanism associated with the maxLength attribute. In API design, the OpenAPI specification ensures clarity and interoperability. The maxLength constraint contributes to data integrity by preventing excessively long strings that could disrupt processing or introduce vulnerabilities. By exceeding this limit, we intentionally induce an error, allowing developers to observe the validation process and understand the implications of violating such constraints. This demonstration exemplifies how the OpenAPI specification enforces validation rules. Witnessing the consequences of exceeding the maxLength limit helps developers appreciate the role of such constraints in maintaining data integrity. This exercise also underscores the value of comprehensive API documentation and tools that facilitate validation and error handling. Furthermore, this deliberate violation emphasizes the need for robust error handling. When validation errors occur, informative messages should guide developers towards resolution. The error message should clearly indicate the violated constraint, the triggering field, and relevant contextual information. By intentionally exceeding the maxLength constraint, we gain insights into the validation process and the importance of adhering to API specifications. This exercise highlights the crucial role of data validation in ensuring API reliability and security, promoting interoperability, and facilitating seamless integration between software components. It also underscores the need for clear error reporting to guide developers in rectifying validation failures. This demonstration also emphasizes the importance of testing and validation throughout API development. By incorporating rigorous testing, including boundary condition and negative testing, developers can proactively identify and address potential validation errors. This proactive approach contributes to a more robust API, minimizing unexpected behavior and enhancing user experience."
+    }
+  }
+}
