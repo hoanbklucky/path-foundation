@@ -1,0 +1,19 @@
+absl-py
+ez-wsi-dicomweb~=6.0.5
+google-cloud-logging
+google-cloud-secret-manager
+jsonschema
+numpy
+pyyaml
+redis
+requests
+
+# requests mock > 1.9.3 adds a RLock which stops the mock from handling
+# simultaneous requests from different threads.
+# TODO: b/375469331 - Enable testing with most current requests-mock release.
+requests-mock==1.9.3
+
+tensorflow
+
+-r data_processing/requirements.txt
+-r prediction_container/requirements.txt

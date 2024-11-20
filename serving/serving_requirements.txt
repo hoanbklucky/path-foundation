@@ -1,0 +1,17 @@
+absl-py~=2.1.0
+ez-wsi-dicomweb~=6.0.5
+flask~=3.0.3
+google-api-core~=2.21.0
+google-cloud-aiplatform~=1.70.0
+google-cloud-logging~=3.11.3
+google-cloud-secret-manager~=2.20.2
+grpcio~=1.67.0
+gunicorn~=23.0.0
+immutabledict~=4.2.0
+numpy~=1.26.4
+psutil~=6.1.0
+redis~=5.1.1
+requests~=2.32.3
+tensorflow~=2.17.0
+tensorflow-serving-api~=2.17.0
+typing-extensions~=4.12.2

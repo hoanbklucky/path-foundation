@@ -1,0 +1,127 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+title: PathologyEmbeddingRequest
+type: object
+required:
+  - patch_coordinates
+oneOf:
+  - type: object
+    required: [dicom_path]
+  - type: object
+    required: [image_file_uri]
+  - type: object
+    required: [input_bytes]
+    not:
+      required: [bearer_token]
+properties:
+  dicom_path:
+    $ref: '#/components/dicom_path'
+  image_file_uri:
+    type: string
+    pattern: ^gs://.+/[^/]+\.[^/]+$
+    description: >
+      The path to an image file in a Google Cloud Storage bucket. Provide the URI in this format:
+      gs://{BUCKET-NAME}/{OPTIONAL-FOLDER-HIERARCHY}/{FILE-NAME}.{FILE-TYPE}
+  input_bytes:
+    type: string
+    format: byte
+    description: >
+      Input data as a base64-encoded string. Refer to the API specification for details.
+  bearer_token:
+    type: string
+    description: >
+      The token to access the Cloud DICOM Store or Cloud Storage bucket where the images are stored.
+  patch_coordinates:
+    type: array
+    minItems: 1
+    description: An array of patch coordinates.
+    items:
+      $ref: '#/components/patch_coordinate'
+  extensions:
+    type: object
+    description: >
+      An optional dictionary to enable flexible communication between the client and server. Refer
+      to [extensions](../README.md#extensions) for the list of supported keys and their purposes.
+    properties:
+      key:
+        type: string
+        description: >
+          A unique key to identify the extension.
+      value:
+        type: object
+        description: >
+          The value for the given extension as an embedded json.
+        additionalProperties: true
+
+components:
+  dicom_path:
+    type: object
+    required:
+      - series_path
+      - instance_uids
+    properties:
+      series_path:
+        type: string
+        pattern: ^https://.+/studies/[0-9\.]{1,64}/series/[0-9\.]{1,64}$
+        description: >
+          The path to a DICOM Series in a DICOMWeb Store. Provide the URI in this format:
+          https://{DICOMWEB-STORE-URI}/studies/{STUDY-UID}/series/{SERIES-UID}
+      instance_uids:
+        type: array
+        minItems: 1
+        description: >
+          A list of unique identifiers for DICOM SOP Instances that contain the image pixels
+          corresponding to the specified coordinates. All SOP Instances listed must have the same
+          pixel spacing.
+        items:
+          type: string
+          pattern: ^[0-9\.]{1,64}$
+
+  patch_coordinate:
+    type: object
+    required:
+      - x_origin
+      - y_origin
+    properties:
+      x_origin:
+        type: integer
+        format: int64
+        minimum: 0
+        description: >
+          The upper leftmost x coordinate of the rectangular patch section.
+      y_origin:
+        type: integer
+        format: int64
+        minimum: 0
+        description: >
+          The upper leftmost y coordinate of the rectangular patch section.
+      width:
+        type: integer
+        format: int64
+        minimum: 1
+        description: >
+          The width of the rectangular patch section extending rightward from the x_origin.
+          If the underlying model doesn't support custom patch sizes, this value is ignored.
+          For more details on the default patch size and whether custom patch sizes are supported,
+          please consult the API specification.
+      height:
+        type: integer
+        format: int64
+        minimum: 1
+        description: >
+          The height of the rectangular patch section. The rectangle extends down from the y_origin.
+          If the underlying model doesn't support custom patch sizes, this value is ignored.
+          For more details on the default patch size and whether custom patch sizes are supported,
+          please consult the API specification.

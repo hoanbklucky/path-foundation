@@ -1,0 +1,134 @@
+# Copyright 2024 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+title: PathologyEmbeddingResponse
+type: object
+description: The generated model results (i.e. computed vector representation of the input data).
+oneOf:
+  - type: object
+    required: [result]
+  - type: object
+    required: [error]
+properties:
+  result:
+    $ref: '#/components/result'
+  error:
+    $ref: '#/components/error'
+
+components:
+  error:
+    type: object
+    description: The error response if an exception occurred while processing the request.
+    required:
+      - code
+    properties:
+      code:
+        type: string
+        description: >
+          List of known error codes.
+        enum:
+        - TOO_MANY_PATCHES_ERROR
+        - INVALID_CREDENTIALS_ERROR
+        - PATCH_DIMENSIONS_DO_NOT_MATCH_ENDPOINT_INPUT_DIMENSIONS_ERROR
+        - INSTANCES_NOT_CONCATENATED_ERROR
+        - INVALID_REQUEST_FIELD_ERROR
+        - INVALID_RESPONSE_ERROR
+        - LEVEL_NOT_FOUND_ERROR
+        - EZ_WSIDE_STATE_ERROR
+        - IMAGE_ERROR
+        - HTTP_ERROR
+        - INVALID_ICC_PROFILE_TRANSFORM_ERROR
+        - IMAGE_DIMENSION_ERROR
+        - DICOM_TILED_FULL_ERROR
+        - DICOM_ERROR
+        - DICOM_IMAGE_DOWNSAMPLING_TOO_LARGE_ERROR
+        - PATCH_OUTSIDE_OF_IMAGE_DIMENSIONS_ERROR
+        - DICOM_PATH_ERROR
+        - GCS_IMAGE_PATH_FORMAT_ERROR
+        - UNAPPROVED_DICOM_STORE_ERROR
+        - UNAPPROVED_GCS_BUCKET_ERROR
+      description:
+        type: string
+        description: A human-readable explanation of the error.
+        maxLength: 1024
+
+  result:
+    type: object
+    required:
+      - patch_embeddings
+    properties:
+      patch_embeddings:
+        type: array
+        minItems: 1
+        description: >
+          The patch coordinates and embedding response.
+        items:
+          $ref: '#/components/patch_embedding'
+
+  patch_embedding:
+    type: object
+    required:
+      - patch_coordinate
+      - embedding_vector
+    properties:
+      patch_coordinate:
+        $ref: '#/components/patch_coordinate'
+      embedding_vector:
+        type: array
+        description: >
+          The 384 or 768 dimension embedding result generated from the input image & patches.
+        items:
+          $ref: '#/components/embedding_value'
+
+  embedding_value:
+    type: number
+    format: float
+    description: Single embedding value.
+
+  patch_coordinate:
+    type: object
+    required:
+      - x_origin
+      - y_origin
+    properties:
+      x_origin:
+        type: integer
+        format: int64
+        minimum: 0
+        description: >
+          The upper leftmost x coordinate of the rectangular patch section.
+      y_origin:
+        type: integer
+        format: int64
+        minimum: 0
+        description: >
+          The upper leftmost y coordinate of the rectangular patch section.
+      width:
+        type: integer
+        format: int64
+        minimum: 1
+        description: >
+          The width of the rectangular patch section extending rightward from the x_origin.
+          If the underlying model doesn't support custom patch sizes, this value is ignored.
+          For more details on the default patch size and whether custom patch sizes are supported,
+          please consult the API specification.
+      height:
+        type: integer
+        format: int64
+        minimum: 1
+        description: >
+          The height of the rectangular patch section. The rectangle extends down from the y_origin.
+          If the underlying model doesn't support custom patch sizes, this value is ignored.
+          For more details on the default patch size and whether custom patch sizes are supported,
+          please consult the API specification.
