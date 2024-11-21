@@ -24,7 +24,7 @@ import numpy as np
 import requests
 import requests_mock
 
-from prediction_container import model_runner
+from serving_framework import model_runner
 import abstract_pete_predictor
 
 

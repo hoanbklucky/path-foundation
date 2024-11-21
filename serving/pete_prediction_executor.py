@@ -27,7 +27,7 @@ from typing import Any, Mapping
 
 from absl import app
 
-from prediction_container import server_model_runner
+from serving_framework import server_model_runner
 import abstract_pete_predictor
 import pete_error_mapping
 import pete_errors

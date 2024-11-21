@@ -42,7 +42,7 @@ import PIL.Image
 import pydicom
 import yaml
 
-from prediction_container import model_runner
+from serving_framework import model_runner
 import pete_errors
 import pete_icc_profile_cache
 import pete_predictor_v2

@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# This script launches the prediction container, run as the entrypoint.
+# This script launches the serving framework, run as the entrypoint.
 
 # Exit if any command fails or if expanding an undefined variable.
 set -eu
@@ -21,9 +21,9 @@ set -eu
 export MODEL_REST_PORT=8600
 export LOCAL_MODEL_PATH=/model
 
-echo "Prediction container start, launching model server"
+echo "Serving framework start, launching model server"
 
-/server-env/bin/python3.12 prediction_container/model_transfer.py \
+/server-env/bin/python3.12 serving_framework/model_transfer.py \
     --gcs_path="${AIP_STORAGE_URI}" \
     --local_path="${LOCAL_MODEL_PATH}/1"
 /usr/bin/tensorflow_model_server \

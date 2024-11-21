@@ -39,7 +39,7 @@ from ez_wsi_dicomweb.ml_toolkit import dicom_path
 import numpy as np
 from PIL import ImageCms
 
-from prediction_container import model_runner
+from serving_framework import model_runner
 import abstract_pete_predictor
 import pete_error_mapping
 import pete_errors

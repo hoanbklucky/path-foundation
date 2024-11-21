@@ -16,4 +16,4 @@ requests-mock==1.9.3
 tensorflow
 
 -r data_processing/requirements.txt
--r prediction_container/requirements.txt
+-r serving_framework/requirements.txt
