@@ -61,7 +61,7 @@ def _mock_dicom_instance() -> pydicom.FileDataset:
   mk_instance.SOPClassUID = sop_class_uid
   mk_instance.SeriesInstanceUID = '1.2.3.4'
   mk_instance.SOPInstanceUID = sop_instance_uid
-  # Tags required for EZ WSI
+  # Tags required for EZ-WSI
   mk_instance.ImageType = ['ORIGINAL', 'PRIMARY', 'VOLUME']
   mk_instance.InstanceNumber = 1
   mk_instance.TotalPixelMatrixColumns = len(frame_data)

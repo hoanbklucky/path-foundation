@@ -44,7 +44,7 @@ def init_embedding_request_logging() -> None:
 class _EZWSICloudLoggingInterface(
     ez_wsi_dicomweb.ez_wsi_logging_factory.AbstractLoggingInterface
 ):
-  """EZ WSI Cloud Logging Interface."""
+  """EZ-WSI Cloud Logging Interface."""
 
   def __init__(self, signature: Optional[Mapping[str, Any]]):
     self._signature = signature
@@ -92,7 +92,7 @@ class _EZWSICloudLoggingInterface(
 class EZWSILoggingInterfaceFactory(
     ez_wsi_dicomweb.ez_wsi_logging_factory.AbstractLoggingInterfaceFactory
 ):
-  """EZ WSI Cloud Logging Interface Factory."""
+  """EZ-WSI Cloud Logging Interface Factory."""
 
   def __init__(self, signature: Mapping[str, Any]):
     self._signature = signature
