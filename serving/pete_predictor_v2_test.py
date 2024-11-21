@@ -57,7 +57,7 @@ from ez_wsi_dicomweb.test_utils.gcs_mock import gcs_mock
 _EndpointJsonKeys = patch_embedding_endpoints.EndpointJsonKeys
 
 _OPEN_API_RESPONSE_YAML_PATH = os.path.join(
-    os.path.dirname(__file__), 'api_specification/vertex_schemata', 'prediction.yaml')
+    os.path.dirname(__file__), 'vertex_schemata', 'prediction.yaml')
 
 _PETE_REQUEST = {
     _EndpointJsonKeys.INSTANCES: [
