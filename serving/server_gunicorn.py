@@ -20,19 +20,60 @@ instance to handle the model.
 """
 
 from collections.abc import Sequence
+import contextlib
 import os
+from typing import Any, Mapping, Dict
 
 from absl import app
 from absl import logging
+from typing_extensions import override
 
+from serving_framework import inline_prediction_executor
+from serving_framework import model_runner
 from serving_framework import server_gunicorn
+from serving_framework import server_model_runner
+import pete_error_mapping
+import pete_errors
+import pete_logging
+import pete_predictor_v2
+from data_models import embedding_response
+from logging_lib import cloud_logging_client
 
-_EXECUTOR = [
-    '/server-env/bin/python3',
-    'pete_prediction_executor.py',
-    '--logtostderr',
-    '--verbosity=1',
-]
+
+class PredictionExecutor(inline_prediction_executor.InlinePredictionExecutor):
+  """Provides prediction request execution using an inline function."""
+
+  def __init__(self):
+    self._pete_predictor = pete_predictor_v2.PetePredictor()
+    self._exitstack = contextlib.ExitStack()
+    super().__init__(self._run_request)
+
+  def _run_request(
+      self,
+      request_json: Mapping[str, Any],
+      model_runner: model_runner.ModelRunner,
+  ) -> Dict[str, Any]:
+    """Runs a single json request using provided components."""
+    pete_logging.init_embedding_request_logging()
+    try:
+      return dict(self._pete_predictor.predict(request_json, model_runner))
+    except pete_errors.PeteError as err:
+      return dict(
+          embedding_response.prediction_error_response_v2(
+              pete_error_mapping.get_error_code(err)
+          )
+      )
+    except Exception as err:
+      cloud_logging_client.error(
+          'Unexpected exception raised while processing request.', err
+      )
+      raise
+
+  @override
+  def start(self):
+    pete_logging.init_application_logging()
+    self._exitstack.enter_context(self._pete_predictor)
+    super().start()
 
 
 def main(argv: Sequence[str]) -> None:
@@ -54,7 +95,7 @@ def main(argv: Sequence[str]) -> None:
   )
   logging.info('Launching gunicorn application.')
   server_gunicorn.PredictionApplication(
-      server_gunicorn.SubprocessPredictionExecutor(_EXECUTOR),
+      PredictionExecutor(),
       health_check=health_checker,
       options=options,
   ).run()
