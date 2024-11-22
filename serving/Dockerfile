@@ -28,10 +28,10 @@ RUN apt-get update && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get install -y git python3.12 python3.12-venv
 
-# Get pypirequirements
+# Get pypi requirements
 RUN python3.12 -m venv /server-env && \
     /server-env/bin/python3.12 -m pip install --upgrade pip && \
-    /server-env/bin/python3.12 -m pip install -r /serving_requirements.txt
+    /server-env/bin/python3.12 -m pip install -r /requirements.txt
 
 # Clone python-certifi to meet MPL 2.0 License terms for source code mirroring
 RUN git clone https://github.com/certifi/python-certifi.git
