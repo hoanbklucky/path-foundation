@@ -1,61 +1,77 @@
-# Path Foundation Serving
+# Path Foundation serving
 
-This folder contains the container implementation for serving the Path
-Foundation model. It includes the Dockerfile, requirements files, and Python
-scripts necessary to run the model server and REST API.
+This folder contains the source code and configuration necessary to serve the
+model on
+[Vertex AI](https://cloud.google.com/vertex-ai/docs/predictions/use-custom-container).
+The implementation follows this
+[container architecture](https://developers.google.com/health-ai-developer-foundations/model-serving/container-architecture).
 
-For documentation on its API, see the
-[API Specification](../docs/api_specification/README.md)
+The serving container can be used in both online and batch prediction workflows:
 
-## Description for select files and folders
+*   **Online predictions**: Deploy the container as a
+    [REST](https://en.wikipedia.org/wiki/REST) endpoint, like a
+    [Vertex AI endpoint](https://cloud.google.com/vertex-ai/docs/general/deployment).
+    This allows you to access the model for real-time predictions via the REST
+    [Application Programming Interface (API)](https://developers.google.com/health-ai-developer-foundations/cxr-foundation/serving-api).
 
-*   [`Dockerfile`](./Dockerfile): This file defines the Docker image that will
-    be used to serve the model. It includes the necessary dependencies, such as
-    TensorFlow and the model server.
-*   [`requirements.txt`](./requirements.txt): This file lists the Python
-    packages that are required to run the model server.
-*   [`abstract_pete_predictor.py`](./abstract_pete_predictor.py): This file
-    defines the abstract base class `AbstractPetePredictor` for embeddings
-    predictors. It includes the abstract method `predict` that needs to be
-    implemented by concrete PETE predictor classes.
-*   [`divided_image_launcher.sh`](./divided_image_launcher.sh): This file is a
-    bash script that launches the divided image for the embeddings model. It
-    sets up the necessary environment variables and launches the inference
-    engine, the REST API server, and the front end.
-*   [`entrypoint.sh`](./entrypoint.sh): This file is a bash script that serves
-    as the entrypoint for the Docker container. It launches the model server and
-    the front end.
-*   [`pete_error_mapping.py`](./pete_error_mapping.py): This file defines
-    mappings between errors in Python and error codes returned in API responses.
-    It includes a dictionary that maps `PeteError` types to `ErrorCode` values.
-*   [`pete_errors.py`](./pete_errors.py): This file defines error classes. It
-    includes the base class `PeteError` and various specific error classes that
-    inherit from it.
-*   [`pete_flags.py`](./pete_flags.py): This file defines flags configured by
-    environmental variables that configure the pathology embeddings prediction
-    container.
-*   [`pete_icc_profile_cache.py`](./pete_icc_profile_cache.py): This file
-    defines the ICC profile cache. It includes functions for caching ICC
-    profiles in Redis and GCS.
-*   [`pete_logging.py`](./pete_logging.py): This file defines the logging
-    functionality for pathology embeddings. It includes functions for
-    initializing logging and setting the log signature.
-*   [`pete_prediction_executor.py`](./pete_prediction_executor.py): This file
-    defines the prediction executor for PETE. It includes the main function that
-    runs the prediction executor loop.
-*   [`pete_predictor_v2.py`](./pete_predictor_v2.py): This file defines the PETE
-    predictor v2 class. It includes the predict function that runs inference on
-    provided patches.
-*   [`requirements.txt`](./requirements.txt): This file lists the Python
-    packages that are required to run the model server.
-*   [`server_gunicorn.py`](./server_gunicorn.py): This file defines the gunicorn
-    server for PETE. It includes the main function that launches the gunicorn
-    application.
-*   [`serving_requirements.txt`](./serving_requirements.txt): This file lists
-    the Python packages that are required to run the model server.
-*   [`api_specification`](./api_specification): The files define the API
-    specification for a pathology embedding service, including the request and
-    response schema, error codes, and validation rules.
-*   [`data_models`](./data_models): The files define data models and associated
-    tests for embedding requests and responses, including patch coordinate
-    handling and conversion to/from JSON format.
+*   **Batch predictions**: Use the container to run large-scale
+    [Vertex AI batch prediction jobs](https://cloud.google.com/vertex-ai/docs/predictions/get-batch-predictions)
+    to process many inputs at once.
+
+Note: PETE is an acronym used throughout the code that stands for Pathology
+Encoder Tech Engine.
+
+## Description of select files and folders
+
+*   [`data_models/`](./data_models): Folder containing data classes used for
+    handling request and response JSONs.
+
+*   [`serving_framework/`](./serving_framework/README.md): A library for
+    implementing Vertex AI-compatible HTTP servers.
+
+*   [`vertex_schemata/`](./vertex_schemata): Folder containing YAML files that
+    define the
+    [PredictSchemata](https://cloud.google.com/vertex-ai/docs/reference/rest/v1/PredictSchemata)
+    for Vertex AI endpoints.
+
+*   [`abstract_pete_predictor.py`](./abstract_pete_predictor.py): Defines
+    `AbstractPetePredictor`, an abstract base class that provides a blueprint
+    for PETE predictor classes. Subclasses must implement the predict method to
+    provide concrete prediction logic.
+
+*   [`Dockerfile`](./Dockerfile): Defines the Docker image for serving the
+    model.
+
+*   [`entrypoint.sh`](./entrypoint.sh): A bash script that is used as the Docker
+    entrypoint. It sets up the necessary environment variables, copies the
+    TensorFlow [SavedModel(s)](https://www.tensorflow.org/guide/saved_model)
+    locally and launches the TensorFlow server and the frontend HTTP server.
+
+*   [`pete_error_mapping.py`](./pete_error_mapping.py): Defines mappings between
+    errors in Python and error codes returned in API responses.
+
+*   [`pete_errors.py`](./pete_errors.py): Defines error classes. It includes the
+    base class `PeteError` and various specific error classes that inherit from
+    it.
+
+*   [`pete_flags.py`](./pete_flags.py): Defines flags configured by
+    environmental variables that configure container.
+
+*   [`pete_icc_profile_cache.py`](./pete_icc_profile_cache.py): Enables
+    [ICC profile](https://en.wikipedia.org/wiki/ICC_profile) caching using
+    [Redis](https://redis.io) or
+    [Cloud Storage](https://cloud.google.com/storage).
+
+*   [`pete_prediction_executor.py`](./pete_prediction_executor.py): Defines the
+    prediction executor for PETE. It includes the main function that runs the
+    prediction executor loop.
+
+*   [`pete_predictor_v2.py`](./pete_predictor_v2.py): Defines the PETE predictor
+    v2 class. It includes the predict function that runs inference on provided
+    patches.
+
+*   [`requirements.txt`](./requirements.txt): Lists the required Python
+    packages.
+
+*   [`server_gunicorn.py`](./server_gunicorn.py): Creates the HTTP server that
+    launches the prediction executor.
