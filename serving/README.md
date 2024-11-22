@@ -26,7 +26,7 @@ Encoder Tech Engine.
 *   [`data_models/`](./data_models): Folder containing data classes used for
     handling request and response JSONs.
 
-*   [`serving_framework/`](./serving_framework/README.md): A library for
+*   [`serving_framework/`](./serving_framework): A library for
     implementing Vertex AI-compatible HTTP servers.
 
 *   [`vertex_schemata/`](./vertex_schemata): Folder containing YAML files that
