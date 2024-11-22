@@ -22,7 +22,7 @@ oneOf:
   - type: object
     required: [image_file_uri]
   - type: object
-    required: [input_bytes]
+    required: [raw_image_bytes]
     not:
       required: [bearer_token]
 properties:
@@ -34,7 +34,7 @@ properties:
     description: >
       The path to an image file in a Google Cloud Storage bucket. Provide the URI in this format:
       gs://{BUCKET-NAME}/{OPTIONAL-FOLDER-HIERARCHY}/{FILE-NAME}.{FILE-TYPE}
-  input_bytes:
+  raw_image_bytes:
     type: string
     format: byte
     description: >
