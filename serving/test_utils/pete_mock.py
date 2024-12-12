@@ -24,8 +24,8 @@ import numpy as np
 import requests
 import requests_mock
 
-from serving_framework import model_runner
-import abstract_pete_predictor
+from serving.serving_framework import model_runner
+from health_foundations.path_foundation.serving import abstract_pete_predictor
 
 
 class _MockModel(model_runner.ModelRunner):

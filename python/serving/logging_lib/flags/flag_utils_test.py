@@ -19,7 +19,7 @@ from absl.testing import absltest
 from absl.testing import parameterized
 import mock
 
-from logging_lib.flags import flag_utils
+from serving.logging_lib.flags import flag_utils
 
 # const
 _UNDEFINED_ENV_VAR_NAME = 'UNDEFINED'

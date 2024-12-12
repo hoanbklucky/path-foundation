@@ -39,18 +39,18 @@ from ez_wsi_dicomweb.ml_toolkit import dicom_path
 import numpy as np
 from PIL import ImageCms
 
-from serving_framework import model_runner
-import abstract_pete_predictor
-import pete_error_mapping
-import pete_errors
-import pete_flags
-import pete_icc_profile_cache
-import pete_logging
-from data_models import embedding_converter
-from data_models import embedding_request
-from data_models import embedding_response
-from data_models import patch_coordinate as patch_coordinate_module
-from logging_lib import cloud_logging_client
+from serving.serving_framework import model_runner
+from health_foundations.path_foundation.serving import abstract_pete_predictor
+from health_foundations.path_foundation.serving import pete_error_mapping
+from health_foundations.path_foundation.serving import pete_errors
+from health_foundations.path_foundation.serving import pete_flags
+from health_foundations.path_foundation.serving import pete_icc_profile_cache
+from health_foundations.path_foundation.serving import pete_logging
+from health_foundations.path_foundation.serving.data_models import embedding_converter
+from health_foundations.path_foundation.serving.data_models import embedding_request
+from health_foundations.path_foundation.serving.data_models import embedding_response
+from health_foundations.path_foundation.serving.data_models import patch_coordinate as patch_coordinate_module
+from serving.logging_lib import cloud_logging_client
 
 
 _EndpointJsonKeys = patch_embedding_endpoints.EndpointJsonKeys

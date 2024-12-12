@@ -22,7 +22,7 @@ import google.api_core
 from google.cloud import secretmanager
 import mock
 
-from logging_lib.flags import secret_flag_utils
+from serving.logging_lib.flags import secret_flag_utils
 
 _MOCK_SECRET = 'projects/test-project/secrets/test-secret'
 

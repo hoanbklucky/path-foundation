@@ -16,7 +16,7 @@
 
 from absl.testing import absltest
 
-import pete_flags
+from health_foundations.path_foundation.serving import pete_flags
 
 
 class PeteFlagsTest(absltest.TestCase):

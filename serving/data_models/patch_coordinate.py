@@ -16,8 +16,8 @@
 
 import dataclasses
 
-import pete_errors
-import pete_flags
+from health_foundations.path_foundation.serving import pete_errors
+from health_foundations.path_foundation.serving import pete_flags
 
 
 @dataclasses.dataclass(frozen=True)

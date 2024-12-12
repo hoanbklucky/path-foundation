@@ -27,14 +27,14 @@ from typing import Any, Mapping
 
 from absl import app
 
-from serving_framework import server_model_runner
-import abstract_pete_predictor
-import pete_error_mapping
-import pete_errors
-import pete_logging
-import pete_predictor_v2
-from data_models import embedding_response
-from logging_lib import cloud_logging_client
+from serving.serving_framework import server_model_runner
+from health_foundations.path_foundation.serving import abstract_pete_predictor
+from health_foundations.path_foundation.serving import pete_error_mapping
+from health_foundations.path_foundation.serving import pete_errors
+from health_foundations.path_foundation.serving import pete_logging
+from health_foundations.path_foundation.serving import pete_predictor_v2
+from health_foundations.path_foundation.serving.data_models import embedding_response
+from serving.logging_lib import cloud_logging_client
 
 
 def _run_request(

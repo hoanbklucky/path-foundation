@@ -19,8 +19,8 @@ import uuid
 
 import ez_wsi_dicomweb.ez_wsi_logging_factory
 
-import pete_flags
-from logging_lib import cloud_logging_client
+from health_foundations.path_foundation.serving import pete_flags
+from serving.logging_lib import cloud_logging_client
 
 
 def _set_log_signature() -> None:

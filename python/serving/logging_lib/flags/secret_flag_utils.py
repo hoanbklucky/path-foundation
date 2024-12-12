@@ -25,7 +25,7 @@ import cachetools
 import google.api_core
 from google.cloud import secretmanager
 
-from logging_lib.flags import flag_utils
+from serving.logging_lib.flags import flag_utils
 
 _T = TypeVar('_T')
 

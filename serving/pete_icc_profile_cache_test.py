@@ -36,8 +36,8 @@ from google.cloud import storage
 import pydicom
 import redis
 
-import pete_icc_profile_cache
-import pete_test_util
+from health_foundations.path_foundation.serving import pete_icc_profile_cache
+from health_foundations.path_foundation.serving import pete_test_util
 from ez_wsi_dicomweb.test_utils.dicom_store_mock import dicom_store_mock
 from ez_wsi_dicomweb.test_utils.gcs_mock import gcs_mock
 

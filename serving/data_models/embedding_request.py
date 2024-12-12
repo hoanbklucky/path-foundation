@@ -17,7 +17,7 @@
 import dataclasses
 import enum
 from typing import Any, List, Mapping, Union
-from data_models import patch_coordinate
+from health_foundations.path_foundation.serving.data_models import patch_coordinate
 
 
 class ModelSize(enum.Enum):

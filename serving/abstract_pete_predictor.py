@@ -16,7 +16,7 @@
 import abc
 from typing import Any, Mapping
 
-from serving_framework import model_runner
+from serving.serving_framework import model_runner
 
 
 class AbstractPetePredictor(metaclass=abc.ABCMeta):

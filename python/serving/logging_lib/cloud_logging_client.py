@@ -25,8 +25,8 @@ from absl import logging
 import google.auth
 import psutil
 
-from logging_lib.flags import secret_flag_utils
-from logging_lib import cloud_logging_client_instance
+from serving.logging_lib.flags import secret_flag_utils
+from serving.logging_lib import cloud_logging_client_instance
 
 # name of cloud ops log
 CLOUD_OPS_LOG_NAME_FLG = flags.DEFINE_string(

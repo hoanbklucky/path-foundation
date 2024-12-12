@@ -31,8 +31,8 @@ from absl.testing import parameterized
 import google.auth
 from google.cloud import logging as cloud_logging
 
-from logging_lib import cloud_logging_client
-from logging_lib import cloud_logging_client_instance
+from serving.logging_lib import cloud_logging_client
+from serving.logging_lib import cloud_logging_client_instance
 
 # const
 _MOCK_BUILD_VERSION = {'BUILD_VERSION': 'MOCK_UNIT_TEST'}

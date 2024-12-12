@@ -20,8 +20,8 @@ from typing import Any, List, Mapping, Optional, Sequence
 
 from ez_wsi_dicomweb import patch_embedding_endpoints
 
-import pete_errors
-from data_models import patch_coordinate
+from health_foundations.path_foundation.serving import pete_errors
+from health_foundations.path_foundation.serving.data_models import patch_coordinate
 
 _MAX_ERROR_DESCRIPTION_LENGTH = 1024
 

@@ -14,8 +14,8 @@
 
 """Mappings between errors in python and error_codes returned in API responses."""
 
-import pete_errors
-from data_models import embedding_response
+from health_foundations.path_foundation.serving import pete_errors
+from health_foundations.path_foundation.serving.data_models import embedding_response
 
 
 _ERROR_MAPPINGS = {
