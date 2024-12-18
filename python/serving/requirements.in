@@ -1,0 +1,21 @@
+absl-py~=2.1.0
+ez-wsi-dicomweb~=6.0.8
+google-cloud-aiplatform~=1.70.0
+google-cloud-logging~=3.11.3
+google-cloud-secret-manager~=2.20.2
+jsonschema~=4.23.0
+numpy~=2.0.2
+pyyaml~=6.0.2
+redis~=5.1.1
+async-timeout~=4.0.3  # Required for older python compatibility.
+requests~=2.32.3
+mock~=5.1.0
+
+# requests mock > 1.9.3 adds a RLock which stops the mock from handling
+# simultaneous requests from different threads.
+# TODO: b/375469331 - Enable testing with most current requests-mock release.
+requests-mock==1.9.3
+
+tensorflow~=2.18.0
+
+-r serving_framework/requirements.in

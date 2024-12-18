@@ -31,7 +31,8 @@ RUN apt-get update && \
 # Get pypi requirements
 RUN python3.12 -m venv /server-env && \
     /server-env/bin/python3.12 -m pip install --upgrade pip && \
-    /server-env/bin/python3.12 -m pip install -r /serving/requirements.txt
+    /server-env/bin/python3.12 -m pip install --require-hashes \
+        -r /serving/requirements.txt
 
 # Clone python-certifi to meet MPL 2.0 License terms for source code mirroring
 RUN git clone https://github.com/certifi/python-certifi.git
