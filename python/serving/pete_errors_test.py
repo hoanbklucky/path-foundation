@@ -19,7 +19,7 @@ import sys
 
 from absl.testing import absltest
 from absl.testing import parameterized
-from health_foundations.path_foundation.serving import pete_errors
+from serving import pete_errors
 
 
 class PeteErrorsTest(parameterized.TestCase):

@@ -24,11 +24,11 @@ from absl.testing import absltest
 from absl.testing import parameterized
 from ez_wsi_dicomweb import patch_embedding_endpoints
 
-from health_foundations.path_foundation.serving import pete_errors
-from health_foundations.path_foundation.serving.data_models import embedding_converter
-from health_foundations.path_foundation.serving.data_models import embedding_request
-from health_foundations.path_foundation.serving.data_models import embedding_response
-from health_foundations.path_foundation.serving.data_models import patch_coordinate
+from serving import pete_errors
+from serving.data_models import embedding_converter
+from serving.data_models import embedding_request
+from serving.data_models import embedding_response
+from serving.data_models import patch_coordinate
 
 
 _EndpointJsonKeys = patch_embedding_endpoints.EndpointJsonKeys

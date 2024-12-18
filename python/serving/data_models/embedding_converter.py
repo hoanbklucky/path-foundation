@@ -20,10 +20,10 @@ from typing import Any, List, Mapping, Sequence
 
 from ez_wsi_dicomweb import patch_embedding_endpoints
 
-from health_foundations.path_foundation.serving import pete_errors
-from health_foundations.path_foundation.serving.data_models import embedding_request
-from health_foundations.path_foundation.serving.data_models import embedding_response
-from health_foundations.path_foundation.serving.data_models import patch_coordinate as patch_coordinate_module
+from serving import pete_errors
+from serving.data_models import embedding_request
+from serving.data_models import embedding_response
+from serving.data_models import patch_coordinate as patch_coordinate_module
 
 _EndpointJsonKeys = patch_embedding_endpoints.EndpointJsonKeys
 

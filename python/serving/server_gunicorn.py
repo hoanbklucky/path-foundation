@@ -32,11 +32,11 @@ from serving.serving_framework import inline_prediction_executor
 from serving.serving_framework import model_runner
 from serving.serving_framework import server_gunicorn
 from serving.serving_framework import server_model_runner
-from health_foundations.path_foundation.serving import pete_error_mapping
-from health_foundations.path_foundation.serving import pete_errors
-from health_foundations.path_foundation.serving import pete_logging
-from health_foundations.path_foundation.serving import pete_predictor_v2
-from health_foundations.path_foundation.serving.data_models import embedding_response
+from serving import pete_error_mapping
+from serving import pete_errors
+from serving import pete_logging
+from serving import pete_predictor_v2
+from serving.data_models import embedding_response
 from serving.logging_lib import cloud_logging_client
 
 

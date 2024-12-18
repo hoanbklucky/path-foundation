@@ -16,8 +16,8 @@
 
 from absl.testing import absltest
 from absl.testing import parameterized
-from health_foundations.path_foundation.serving import pete_errors
-from health_foundations.path_foundation.serving.data_models import patch_coordinate
+from serving import pete_errors
+from serving.data_models import patch_coordinate
 
 
 class PatchCoordinateTest(parameterized.TestCase):

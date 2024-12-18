@@ -17,9 +17,9 @@
 
 FROM tensorflow/serving:2.18.0
 
-COPY ./serving /
+COPY ./python/serving /serving
 COPY ./LICENSE /LICENSE
-RUN chmod a+x /entrypoint.sh
+RUN chmod a+x /serving/entrypoint.sh
 
 # Install python3.12 and git
 RUN apt-get update && \
@@ -31,9 +31,9 @@ RUN apt-get update && \
 # Get pypi requirements
 RUN python3.12 -m venv /server-env && \
     /server-env/bin/python3.12 -m pip install --upgrade pip && \
-    /server-env/bin/python3.12 -m pip install -r /requirements.txt
+    /server-env/bin/python3.12 -m pip install -r /serving/requirements.txt
 
 # Clone python-certifi to meet MPL 2.0 License terms for source code mirroring
 RUN git clone https://github.com/certifi/python-certifi.git
 
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/serving/entrypoint.sh"]

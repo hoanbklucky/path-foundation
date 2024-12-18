@@ -31,9 +31,9 @@ import numpy as np
 import pydicom
 import requests_mock
 
-from health_foundations.path_foundation.serving import pete_predictor_v2
-from health_foundations.path_foundation.serving.test_utils import pete_mock
-from health_foundations.path_foundation.serving.test_utils import test_files
+from serving import pete_predictor_v2
+from serving.test_utils import pete_mock
+from serving.test_utils import test_files
 from ez_wsi_dicomweb.test_utils.dicom_store_mock import dicom_store_mock
 from ez_wsi_dicomweb.test_utils.gcs_mock import gcs_mock
 

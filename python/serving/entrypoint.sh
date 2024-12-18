@@ -23,7 +23,7 @@ export LOCAL_MODEL_PATH=/model
 
 echo "Serving framework start, launching model server"
 
-/server-env/bin/python3.12 serving_framework/model_transfer.py \
+/server-env/bin/python3.12 -m serving.serving_framework.model_transfer \
     --gcs_path="${AIP_STORAGE_URI}" \
     --local_path="${LOCAL_MODEL_PATH}/1"
 /usr/bin/tensorflow_model_server \
@@ -35,7 +35,7 @@ echo "Serving framework start, launching model server"
 
 echo "Launching front end"
 
-/server-env/bin/python3.12 server_gunicorn.py --alsologtostderr \
+/server-env/bin/python3.12 -m serving.server_gunicorn --alsologtostderr \
     --verbosity=1 &
 
 # Wait for any process to exit

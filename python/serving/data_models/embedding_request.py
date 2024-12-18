@@ -17,7 +17,7 @@
 import dataclasses
 import enum
 from typing import Any, List, Mapping, Union
-from health_foundations.path_foundation.serving.data_models import patch_coordinate
+from serving.data_models import patch_coordinate
 
 
 class ModelSize(enum.Enum):
@@ -53,6 +53,7 @@ class EmbeddingInstanceV1:
 @dataclasses.dataclass(frozen=True)
 class DicomImageV2:
   """An instance in a DICOM Embedding Request as described in the schema file."""
+
   series_path: str
   bearer_token: str
   extensions: Mapping[str, Any]
@@ -73,6 +74,7 @@ class GcsImageV2:
 @dataclasses.dataclass(frozen=True)
 class EmbeddedImageV2:
   """An instance in a DICOM Embedding Request as described in the schema file."""
+
   image_bytes: str
   extensions: Mapping[str, Any]
   patch_coordinates: List[patch_coordinate.PatchCoordinate]
@@ -92,6 +94,7 @@ class EmbeddingParameters:
 @dataclasses.dataclass(frozen=True)
 class EmbeddingRequestV1:
   """A DICOM Embedding Request is a single parameter and list of instances."""
+
   parameters: EmbeddingParameters
   instances: List[EmbeddingInstanceV1]
 

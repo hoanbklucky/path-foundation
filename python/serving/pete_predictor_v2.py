@@ -40,16 +40,16 @@ import numpy as np
 from PIL import ImageCms
 
 from serving.serving_framework import model_runner
-from health_foundations.path_foundation.serving import abstract_pete_predictor
-from health_foundations.path_foundation.serving import pete_error_mapping
-from health_foundations.path_foundation.serving import pete_errors
-from health_foundations.path_foundation.serving import pete_flags
-from health_foundations.path_foundation.serving import pete_icc_profile_cache
-from health_foundations.path_foundation.serving import pete_logging
-from health_foundations.path_foundation.serving.data_models import embedding_converter
-from health_foundations.path_foundation.serving.data_models import embedding_request
-from health_foundations.path_foundation.serving.data_models import embedding_response
-from health_foundations.path_foundation.serving.data_models import patch_coordinate as patch_coordinate_module
+from serving import abstract_pete_predictor
+from serving import pete_error_mapping
+from serving import pete_errors
+from serving import pete_flags
+from serving import pete_icc_profile_cache
+from serving import pete_logging
+from serving.data_models import embedding_converter
+from serving.data_models import embedding_request
+from serving.data_models import embedding_response
+from serving.data_models import patch_coordinate as patch_coordinate_module
 from serving.logging_lib import cloud_logging_client
 
 

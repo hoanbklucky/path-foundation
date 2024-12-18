@@ -19,7 +19,7 @@ import uuid
 
 import ez_wsi_dicomweb.ez_wsi_logging_factory
 
-from health_foundations.path_foundation.serving import pete_flags
+from serving import pete_flags
 from serving.logging_lib import cloud_logging_client
 
 

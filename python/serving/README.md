@@ -23,9 +23,6 @@ Encoder Tech Engine.
 
 ## Description of select files and folders
 
-*   [`data_models/`](./data_models): Folder containing data classes used for
-    handling request and response JSONs.
-
 *   [`serving_framework/`](./serving_framework): A library for
     implementing Vertex AI-compatible HTTP servers.
 
@@ -75,3 +72,8 @@ Encoder Tech Engine.
 
 *   [`server_gunicorn.py`](./server_gunicorn.py): Creates the HTTP server that
     launches the prediction executor.
+
+## Dependencies
+
+*   [`data_processing/`](../data_processing): A library for data
+    retrieval and processing.

@@ -43,13 +43,13 @@ import pydicom
 import yaml
 
 from serving.serving_framework import model_runner
-from health_foundations.path_foundation.serving import pete_errors
-from health_foundations.path_foundation.serving import pete_icc_profile_cache
-from health_foundations.path_foundation.serving import pete_predictor_v2
-from health_foundations.path_foundation.serving.data_models import embedding_converter
-from health_foundations.path_foundation.serving.data_models import embedding_request
-from health_foundations.path_foundation.serving.data_models import patch_coordinate
-from health_foundations.path_foundation.serving.test_utils import test_files
+from serving import pete_errors
+from serving import pete_icc_profile_cache
+from serving import pete_predictor_v2
+from serving.data_models import embedding_converter
+from serving.data_models import embedding_request
+from serving.data_models import patch_coordinate
+from serving.test_utils import test_files
 from ez_wsi_dicomweb.test_utils.dicom_store_mock import dicom_store_mock
 from ez_wsi_dicomweb.test_utils.gcs_mock import gcs_mock
 
