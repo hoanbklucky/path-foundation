@@ -28,6 +28,6 @@
     embeddings from a variety of data sources including Cloud DICOM store, GCS,
     and locally stored files or in-memory data representations.
 
-*   [Fine-tune data efficient classifier](fine_tune_data_efficient_classifier_gcs.ipynb)
+*   [Fine-tune data efficient classifier](fine_tune_data_efficient_classifier.ipynb)
     Example of fine-tuning the weights of the pathology embedding model to
     classify pathology image patches as an alternative to a linear classifier.
