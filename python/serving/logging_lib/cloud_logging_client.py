@@ -18,7 +18,7 @@ from __future__ import annotations
 import os
 import sys
 import threading
-from typing import Any, List, Mapping, Optional, Union
+from typing import Any, Mapping, Optional, Union
 
 from absl import flags
 from absl import logging
@@ -100,52 +100,6 @@ def _are_flags_initialized() -> bool:
     return False
 
 
-def _check_param_sets_flag(param: str, flag_lst: List[str]) -> bool:
-  """Tests if parameter is the start of flag definition."""
-  for flag in flag_lst:
-    if param.startswith(f'--{flag}'):
-      return True
-    if param.startswith(f'-{flag}'):
-      return True
-  return False
-
-
-def _get_logger_flags(argv: List[str]) -> List[str]:
-  """Initialize logger with only flags required for logger initialization.
-
-     Workaround if application defines accepts additional flags not which
-     haven't been defined at the time the logger is initialized.
-
-  Args:
-    argv: Command line arguments.
-
-  Returns:
-    List of passed commandline arguments required for logger init.
-  """
-  if not argv:
-    return []
-  command_line_flags = [argv[0]]
-  flg_lst = [
-      CLOUD_OPS_LOG_NAME_FLG.name,
-      CLOUD_OPS_LOG_PROJECT_FLG.name,
-      POD_HOSTNAME_FLG.name,
-      POD_UID_FLG.name,
-      ENABLE_STRUCTURED_LOGGING_FLG.name,
-      LOG_ALL_PYTHON_LOGS_TO_CLOUD_FLG.name,
-      PER_THREAD_LOG_SIGNATURES_FLG.name,
-      ENABLE_LOGGING_FLG.name,
-  ]
-  add_flg = False
-  for param in argv[1:]:
-    if _check_param_sets_flag(param, flg_lst):
-      add_flg = True
-    elif param.startswith('-'):
-      add_flg = False
-    if add_flg:
-      command_line_flags.append(param)
-  return command_line_flags
-
-
 def _get_flags() -> Mapping[str, str]:
   load_flags = {}
   unparsed_flags = []
@@ -164,7 +118,7 @@ def _default_gcp_project() -> str:
     _, project = google.auth.default(
         scopes=['https://www.googleapis.com/auth/cloud-platform']
     )
-    return project
+    return project if project is not None else ''
   except google.auth.exceptions.DefaultCredentialsError:
     return ''
 
@@ -226,7 +180,7 @@ class CloudLoggingClient(
     with CloudLoggingClient._singleton_lock:
       if not _are_flags_initialized():
         # if flags are not initialize then init logging flags
-        flags.FLAGS(_get_logger_flags(sys.argv))
+        flags.FLAGS(sys.argv, known_only=True)
       if CloudLoggingClient._singleton_instance is not None:
         raise cloud_logging_client_instance.CloudLoggerInstanceExceptionError(
             'Singleton already initialized.'

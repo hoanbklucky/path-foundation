@@ -119,67 +119,6 @@ class CloudLoggingTest(parameterized.TestCase):
           logging.getLogger(), 'test', {'foo': 'bar'}, 99999
       )  # pytype: disable=wrong-arg-types
 
-  def test_does_param_define_flag_true(self):
-    self.assertTrue(
-        cloud_logging_client._check_param_sets_flag('--foo', ['foo'])
-    )
-    self.assertTrue(
-        cloud_logging_client._check_param_sets_flag('-foo', ['foo'])
-    )
-
-  def test_does_param_define_flag_false(self):
-    self.assertFalse(
-        cloud_logging_client._check_param_sets_flag('foo', ['foo'])
-    )
-    self.assertFalse(
-        cloud_logging_client._check_param_sets_flag('bar', ['foo'])
-    )
-    self.assertFalse(
-        cloud_logging_client._check_param_sets_flag('--bar', ['foo'])
-    )
-
-  def test_get_logger_flags(self):
-    log_name_flg = cloud_logging_client.CLOUD_OPS_LOG_NAME_FLG.name
-    project_flg = cloud_logging_client.CLOUD_OPS_LOG_PROJECT_FLG.name
-    host_flg = cloud_logging_client.POD_HOSTNAME_FLG.name
-    uid_flg = cloud_logging_client.POD_UID_FLG.name
-    enable_structured_log_flg = (
-        cloud_logging_client.ENABLE_STRUCTURED_LOGGING_FLG.name
-    )
-    cmdline_param = [
-        'foo',
-        f'--{log_name_flg}="bar"',
-        '--skip=none',
-        f'-{project_flg}',
-        '=',
-        '123',
-        '-skip2',
-        f'-{host_flg}',
-        '--skip3',
-        '=',
-        '45',
-        f'--{uid_flg}="1.2.3.5"',
-        f'--{enable_structured_log_flg}',
-        '--skip6="5324"',
-    ]
-
-    cmdline_param = cloud_logging_client._get_logger_flags(cmdline_param)
-
-    self.assertEqual([], cloud_logging_client._get_logger_flags([]))
-    self.assertEqual(
-        cmdline_param,
-        [
-            'foo',
-            f'--{log_name_flg}="bar"',
-            f'-{project_flg}',
-            '=',
-            '123',
-            f'-{host_flg}',
-            f'--{uid_flg}="1.2.3.5"',
-            f'--{enable_structured_log_flg}',
-        ],
-    )
-
   def test_get_source_location_to_log_with_stack_frames_back_beyond_stack(self):
     with self.assertRaises(ValueError):
       cloud_logging_client_instance._get_source_location_to_log(999)
