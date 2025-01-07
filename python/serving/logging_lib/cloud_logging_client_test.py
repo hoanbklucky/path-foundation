@@ -34,7 +34,6 @@ from google.cloud import logging as cloud_logging
 from serving.logging_lib import cloud_logging_client
 from serving.logging_lib import cloud_logging_client_instance
 
-# const
 _MOCK_BUILD_VERSION = {'BUILD_VERSION': 'MOCK_UNIT_TEST'}
 
 
@@ -65,6 +64,7 @@ class CloudLoggingTest(parameterized.TestCase):
     cloud_logging_client_instance.CloudLoggingClientInstance._per_thread_log_signatures = (
         True
     )
+    self.enter_context(flagsaver.flagsaver(ops_log_project='TEST_PROJECT'))
 
   def tearDown(self):
     # force cloud logger to re-initalize for each unit test.
@@ -260,6 +260,7 @@ class CloudLoggingTest(parameterized.TestCase):
   def test_flags_initialized(self):
     self.assertTrue(cloud_logging_client._are_flags_initialized())
 
+  @flagsaver.flagsaver(ops_log_project=None)
   def test_flags_not_initialized(self):
     self.assertFalse(cloud_logging_client._are_flags_initialized())
 
@@ -1281,6 +1282,7 @@ class CloudLoggingTest(parameterized.TestCase):
           log_name='', use_absl_logging=False
       )
 
+  @mock.patch.dict(os.environ, {'GOOGLE_CLOUD_PROJECT': 'TEST_PROJECT'})
   def test_undefined_pod_uid_raises(self):
     with self.assertRaises(ValueError):
       instance = cloud_logging_client_instance.CloudLoggingClientInstance(
@@ -1431,6 +1433,7 @@ class CloudLoggingTest(parameterized.TestCase):
         'test_project',
     )
 
+  @flagsaver.flagsaver(ops_log_project=None)
   @mock.patch.object(
       google.auth,
       'default',
