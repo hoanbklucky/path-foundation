@@ -1,10 +1,9 @@
 # Path Foundation
 
 Path Foundation is a machine learning (ML) model that produces embeddings based
-on digital pathology images. The embeddings can be used to
-[efficiently build AI models](https://en.wikipedia.org/wiki/Transfer_learning)
-for pathology analysis-related tasks, requiring less data and less compute than
-having to fully train a model without the embeddings.
+on digital pathology images. The embeddings can be used to efficiently build AI
+models for pathology analysis-related tasks, requiring less data and less
+compute than having to fully train a model without the embeddings.
 
 As a Health AI Developer Foundations (HAI-DEF) model trained on large scale
 datasets, Path Foundation helps businesses and institutions in healthcare and
@@ -23,7 +22,7 @@ build AI models for pathology image analysis.
 
 *   Explore this repository, which contains [notebooks](./notebooks) for using
     the model from Hugging Face and Vertex AI as well as the
-    [implementation](./serving) of the container that you can deploy to Vertex
+    [implementation](./python/serving) of the container that you can deploy to Vertex
     AI.
 
 *   Visit the model on
